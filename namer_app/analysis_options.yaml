@@ -1,0 +1,13 @@
+# ===== Kế thừa bộ quy tắc lint tiêu chuẩn của Flutter =====
+include: package:flutter_lints/flutter.yaml
+
+# ===== Ghi đè hoặc bổ sung quy tắc kiểm tra mã nguồn =====
+linter:
+  rules:
+    avoid_print: false                                # Cho phép dùng print (mặc định là cảnh báo)
+    prefer_const_constructors_in_immutables: false    # Không bắt buộc thêm const vào constructor của widget immutable
+    prefer_const_constructors: false                  # Không bắt buộc dùng const khi có thể
+    prefer_const_literals_to_create_immutables: false # Không yêu cầu dùng const với List/Map/Set bất biến
+    prefer_final_fields: false                        # Cho phép dùng biến non-final trong class nếu muốn
+    unnecessary_breaks: true                          # Bật cảnh báo nếu break không cần thiết (giúp code gọn hơn)
+    use_key_in_widget_constructors: false             # Không yêu cầu thêm key vào constructor của widget
