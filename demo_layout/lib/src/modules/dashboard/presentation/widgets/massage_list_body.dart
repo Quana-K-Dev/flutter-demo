@@ -552,7 +552,154 @@ class MessagesListBody extends ConsumerWidget {
         );
       }
 
-      Widget _rowShell(Widget leading) {
+      // Widget _rowShell(Widget leading) {
+      //   return Container(
+      //     decoration: const BoxDecoration(
+      //       border: Border(
+      //         top: BorderSide(color: borderColor, width: 0.5),
+      //         bottom: BorderSide(color: borderColor, width: 0.5),
+      //       ),
+      //     ),
+      //     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+      //     child: Row(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         leading,
+      //         const SizedBox(width: 14),
+      //         Expanded(
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               RichText(
+      //                 text: const TextSpan(
+      //                   style: TextStyle(fontSize: fontSizeBasic),
+      //                   children: [
+      //                     TextSpan(
+      //                       text: 'Abby',
+      //                       style: TextStyle(
+      //                         color: colorTxtPrimary,
+      //                         fontWeight: font1,
+      //                       ),
+      //                     ),
+      //                     TextSpan(
+      //                       text: ' wants to join ',
+      //                       style: TextStyle(
+      //                         color: colorTxtSecondary,
+      //                         fontWeight: font3,
+      //                       ),
+      //                     ),
+      //                     TextSpan(
+      //                       text: 'ABC team',
+      //                       style: TextStyle(
+      //                         color: colorTxtPrimary,
+      //                         fontWeight: font1,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //               const SizedBox(height: 6),
+      //               // Row(
+      //               //   children: [
+      //               //     Container(
+      //               //       width: widthButton,
+      //               //       height: heightButton,
+      //               //       alignment: Alignment.center,
+      //               //       decoration: BoxDecoration(
+      //               //         color: colorTxtPrimary,
+      //               //         borderRadius: BorderRadius.circular(20),
+      //               //       ),
+      //               //       child: const Text(
+      //               //         'Accept',
+      //               //         style: TextStyle(
+      //               //           color: colorTxtSimple,
+      //               //           fontWeight: font4,
+      //               //           fontSize: fontSizeSmall,
+      //               //         ),
+      //               //       ),
+      //               //     ),
+      //               //     const SizedBox(width: 8),
+      //               //     Container(
+      //               //       width: widthButton,
+      //               //       height: heightButton,
+      //               //       alignment: Alignment.center,
+      //               //       decoration: BoxDecoration(
+      //               //         color: colorBrBtnDecline,
+      //               //         borderRadius: BorderRadius.circular(20),
+      //               //       ),
+      //               //       child: const Text(
+      //               //         'Decline',
+      //               //         style: TextStyle(
+      //               //           color: colorTxtDecline,
+      //               //           fontWeight: font4,
+      //               //           fontSize: fontSizeSmall,
+      //               //         ),
+      //               //       ),
+      //               //     ),
+      //               //   ],
+      //               // ),
+      //             ],
+      //           ),
+      //         ),
+      //         const Text(
+      //           'Now',
+      //           style: TextStyle(
+      //             color: colorTxtSecondary,
+      //             fontSize: 12,
+      //             fontWeight: font4,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   );
+      // }
+      
+      Widget _actionButtons(String primaryText) {
+        return Row(
+          children: [
+            Container(
+              width: widthButton,
+              height: heightButton,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colorTxtPrimary,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                primaryText,
+                style: const TextStyle(
+                  color: colorTxtSimple,
+                  fontWeight: font4,
+                  fontSize: fontSizeSmall,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              width: widthButton,
+              height: heightButton,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colorBrBtnDecline,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                'Decline',
+                style: TextStyle(
+                  color: colorTxtDecline,
+                  fontWeight: font4,
+                  fontSize: fontSizeSmall,
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+
+      Widget _rowShell(Widget leading, {String? primaryActionLabel}) {
+        final showActions =
+            primaryActionLabel == "I'll join" || primaryActionLabel == "Accept";
+
         return Container(
           decoration: const BoxDecoration(
             border: Border(
@@ -569,6 +716,10 @@ class MessagesListBody extends ConsumerWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  // Nếu không có nút → căn giữa theo trục dọc
+                  mainAxisAlignment: showActions
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
                   children: [
                     RichText(
                       text: const TextSpan(
@@ -598,46 +749,10 @@ class MessagesListBody extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    // Row(
-                    //   children: [
-                    //     Container(
-                    //       width: widthButton,
-                    //       height: heightButton,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color: colorTxtPrimary,
-                    //         borderRadius: BorderRadius.circular(20),
-                    //       ),
-                    //       child: const Text(
-                    //         'Accept',
-                    //         style: TextStyle(
-                    //           color: colorTxtSimple,
-                    //           fontWeight: font4,
-                    //           fontSize: fontSizeSmall,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     const SizedBox(width: 8),
-                    //     Container(
-                    //       width: widthButton,
-                    //       height: heightButton,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color: colorBrBtnDecline,
-                    //         borderRadius: BorderRadius.circular(20),
-                    //       ),
-                    //       child: const Text(
-                    //         'Decline',
-                    //         style: TextStyle(
-                    //           color: colorTxtDecline,
-                    //           fontWeight: font4,
-                    //           fontSize: fontSizeSmall,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    if (showActions) ...[
+                      const SizedBox(height: 6),
+                      _actionButtons(primaryActionLabel!), // truyền label vào
+                    ],
                   ],
                 ),
               ),
@@ -654,47 +769,7 @@ class MessagesListBody extends ConsumerWidget {
         );
       }
 
-      Widget _btn(String btn) {
-        return Row(
-          children: [
-            Container(
-              width: widthButton,
-              height: heightButton,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: colorTxtPrimary,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                btn,
-                style: TextStyle(
-                  color: colorTxtSimple,
-                  fontWeight: font4,
-                  fontSize: fontSizeSmall,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              width: widthButton,
-              height: heightButton,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: colorBrBtnDecline,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                'Decline',
-                style: TextStyle(
-                  color: colorTxtDecline,
-                  fontWeight: font4,
-                  fontSize: fontSizeSmall,
-                ),
-              ),
-            ),
-          ],
-        );
-      }
+      
 
       switch (avatar) {
         // URL ảnh http/https
@@ -739,35 +814,36 @@ class MessagesListBody extends ConsumerWidget {
           buildInvitationRow2("assets/images/icon-avt-cale-notification.png"),
           buildInvitationRow2("Icons.videocam"),
 
-          // buildSimpleNotification(
-          //   'You have joined ABC team',
-          //   '10m',
-          //   Colors.green[100]!,
-          //   Icon(Icons.check_circle, color: colorBrBtnDecline, size: 20),
-          // ),
-          // buildEventChangeNotification(),
-          // buildCancelEventNotification(),
-          // buildSimpleNotification(
-          //   'Name event is Live',
-          //   'Week ago',
-          //   Colors.red[100]!,
-          //   Icon(Icons.videocam, color: colorTxtDecline, size: 20),
-          // ),
-          // buildSimpleNotification(
-          //   'Biran confirmed to attend ABC event',
-          //   '2 weeks ago',
-          //   colorBrIconBrand,
-          //   Center(
-          //     child: Text(
-          //       'TM',
-          //       style: TextStyle(
-          //         color: Colors.white,
-          //         fontWeight: FontWeight.bold,
-          //         fontSize: 14,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          buildInvitationRow("TM"),
+          buildSimpleNotification(
+            'You have joined ABC team',
+            '10m',
+            Colors.green[100]!,
+            Icon(Icons.check_circle, color: colorBrBtnDecline, size: 20),
+          ),
+          buildEventChangeNotification(),
+          buildCancelEventNotification(),
+          buildSimpleNotification(
+            'Name event is Live',
+            'Week ago',
+            Colors.red[100]!,
+            Icon(Icons.videocam, color: colorTxtDecline, size: 20),
+          ),
+          buildSimpleNotification(
+            'Biran confirmed to attend ABC event',
+            '2 weeks ago',
+            colorBrIconBrand,
+            Center(
+              child: Text(
+                'TM',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
